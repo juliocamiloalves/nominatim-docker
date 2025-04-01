@@ -1,5 +1,5 @@
 ARG NOMINATIM_VERSION=5.1.0
-ARG USER_AGENT=mediagis/nominatim-docker:${NOMINATIM_VERSION}
+ARG USER_AGENT=juliocamiloalves/nominatim-docker:${NOMINATIM_VERSION}
 
 FROM ubuntu:24.04 AS build
 
@@ -8,7 +8,6 @@ ENV LANG=C.UTF-8
 
 WORKDIR /app
 
-# Inspired by https://github.com/reproducible-containers/buildkit-cache-dance?tab=readme-ov-file#apt-get-github-actions
 RUN  \
     --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -22,8 +21,8 @@ RUN  \
     && apt-get -y update -qq \
     && apt-get -y install \
         locales \
-    && locale-gen en_US.UTF-8 \
-    && update-locale LANG=en_US.UTF-8 \
+    && locale-gen pt_BR.UTF-8 \
+    && update-locale LANG=pt_BR.UTF-8 \
     && apt-get -y install \
         -o APT::Install-Recommends="false" \
         -o APT::Install-Suggests="false" \
@@ -89,7 +88,7 @@ FROM scratch
 COPY --from=build / /
 
 # Please override this
-ENV NOMINATIM_PASSWORD=qaIACxO6wMR3
+ENV NOMINATIM_PASSWORD=XfOESb84bAQ5
 
 ENV PROJECT_DIR=/nominatim
 
